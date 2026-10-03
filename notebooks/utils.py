@@ -11,6 +11,7 @@ def call_jev(
     timeout: float = 10.0,
     base_url: str | None = None,
     api_key: str | None = None,
+    path: str = "v1/systemone",
 ) -> dict[str, Any]:
     api_key_value = api_key or os.environ.get("TYPESAFE_API_KEY")
     if not api_key_value:
@@ -25,7 +26,7 @@ def call_jev(
         )
 
     response = httpx.post(
-        url=api_base_url,
+        url=f"{api_base_url.rstrip('/')}/{path.lstrip('/')}",
         headers={"Authorization": f"Bearer {api_key_value}"},
         json=payload,
         timeout=timeout,

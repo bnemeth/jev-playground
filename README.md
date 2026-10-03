@@ -156,7 +156,11 @@ A kérdés így fix, csak az adat változik. Ugyanaz a kérdés több mezőre is
 
 ## Typesafe API
 
+Notebook: [004_typesafe_sdk.ipynb](notebooks/004_typesafe_sdk.ipynb)
+
 ## Langchain API
+
+Notebook: [005_langchain_integration.ipynb](notebooks/005_langchain_integration.ipynb)
 
 ## API key!
 
