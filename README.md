@@ -46,7 +46,7 @@ A kérdés **nem** ide kerül, ezek csak a tények.
 - **Choice:** választ az előre megadott lehetőségek közül.
 - **Score:** egy leírt, rendezett skálán értékel.
 
-Mindhárom kérdéstípus valószínűséget ad vissza: Noul egy 0–1 értéket, Choice és Score pedig egy teljes eloszlást. A ['confidence'](https://docs.typesafe.ai/confidence) ezekből számolt összegző érték, nem különálló modellkimenet.
+Mindhárom kérdéstípus valószínűséget ad vissza: Noul egy 0–1 értéket, Choice és Score pedig egy teljes eloszlást.
 
 Egy stage-hez több, egymástól függetlenül kiértékelhető kérdést is megadhatunk.
 
@@ -62,7 +62,32 @@ Notebook: [000_walkthrough_lesson_noul.ipynb](notebooks/000_walkthrough_lesson_n
 
 ## Choice
 
+Egy opció kiválasztása egy előre megadott halmazból.
+
+- **Bemenet:** `instructions` (a kérdés) és `criteria`: opciónév → leírás. A leírás lehet string, objektum vagy üres. A modell az opció nevét és leírását is látja.
+- **Kimenet:**
+  - `choice`: a legnagyobb valószínűségű opció,
+  - `probabilities`: eloszlás az összes opcióra (összege 1),
+  - [`confidence`](https://docs.typesafe.ai/confidence): a `probabilities`-ből számolt összegző érték, nem különálló modellkimenet. Egy csúcs esetén magas, szétterülő eloszlásnál alacsony.
+- **Legfeljebb 255 opció.** Ha a lista nem fed le minden esetet, érdemes egy `other` / `none` opciót is megadni, különben a modell kénytelen a meglévők közül választani.
+- **Az opciók sorrendje számíthat**: a `jev-1.13` hajlamos az elsőként megadott felé húzni.
+
+Notebook: [001_walkthrough_lesson_choice.ipynb](notebooks/001_walkthrough_lesson_choice.ipynb)
+
 ## Score
+
+Értékelés egy rendezett, szavakban leírt skálán.
+
+- **Bemenet:** `instructions` (mit értékelünk) és `criteria`: a szintek leírásainak rendezett listája, alulról felfelé, 2–10 szint. A szint száma a listabeli indexe, 0-tól.
+- **Kimenet:**
+  - `score`: a szintszámok valószínűséggel súlyozott átlaga (Σ szint × p). Ezért lehet tört, például 3.45.
+  - `probabilities`: eloszlás a szintekre (összege 1),
+  - `legend`: szintszám → leírás,
+  - [`confidence`](https://docs.typesafe.ai/confidence): a `probabilities`-ből számolt összegző érték.
+- **A `score` önmagában nem elég.** Ugyanaz az érték különböző eloszlásból is kijöhet: az 1.0 jelentheti, hogy minden az 1-es szinten van, de azt is, hogy fele-fele a 0-n és a 2-n. Ezért a `probabilities`-t is érdemes megnézni.
+- **Egy Score = egy dimenzió.** A „pontos, okos és tapasztalt” három külön kérdés.
+
+Notebook: [002_walkthrough_lesson_can_monkey.ipynb](notebooks/002_walkthrough_lesson_can_monkey.ipynb)
 
 ## Mezőhivatkozás a kérdésben
 
