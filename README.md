@@ -1,5 +1,7 @@
 # Jev
 
+![Access denied](access.png)
+
 ## Mire jó, és mire nem?
 
 A TypeSafe abból indul ki, hogy az AI-t a jövőben nagyrészt nem ember fogja használni, hanem más AI-rendszerek és kód. Ezért nem olvasásra szánt szöveget ad vissza, hanem olyan kimenetet, amit egy alkalmazás közvetlenül feldolgozhat.
